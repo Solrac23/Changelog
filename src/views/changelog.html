@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset style="height: 100%; padding: 20px;">
+        <form action="" method="post">
+            <ul>
+                <li>
+                    <label for="version">Version</label>
+                    <input type="text" name="version" id="version">
+                </li>
+                <li>
+                    <label for="data">Date</label>
+                    <input type="date" name="data" id="data">
+                </li>
+                <li>
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="30" rows="1"></textarea>
+                </li>
+                <li>
+                    <label for="major_topics">Topicos Principais</label>
+                    <textarea name="major_topics" id="major_topics" cols="30" rows="1"></textarea>
+                    <li>
+                        <label for="topics_check">Topicos Check</label>
+                        <input type="checkbox" name="topics_check" id="topics_check" value= "true"> 
+                    </li>
+                </li>
+                <li>
+                    <label for="new_params">Paramêtros Novos</label>
+                    <textarea name="new_params" id="new_params" cols="30" rows="1"></textarea>
+                    <li>
+                        <label for="params_check">Changes Check</label>
+                        <input type="checkbox" name="params_check" id="params_check" value= "true"> 
+                    </li>
+                </li>
+                <li>
+                    <label for="err">Correção de Erros</label>
+                    <textarea name="err" id="err" cols="30" rows="1"></textarea>
+                    <li>
+                        <label for="err_check">Erros Check</label>
+                        <input type="checkbox" name="err_check" id="err_check" value= "true"> 
+                    </li>
+                </li>
+                <li>
+                    <label for="bug">Bug</label>
+                    <input type="checkbox" name="bug_check" id="bug_check">
+                </li>
+            </ul>
+            <input type="submit">
+        </form>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="GitLab Pages">
+    <title>Plain HTML site using GitLab Pages</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <link rel = "stylesheet" type = "text/css" href = "menuSuperiorAdmin.css" media="screen">
+    <link rel = "stylesheet" type = "text/css" href = "menuLateralAdmin.css" media="screen">
+  </head>
+  <body>
+    <!--<div class="navbar">
+      <a href="#">Plain HTML Example</a>
+      <a href="#">Repository</a>
+      <a href="#">Other Examples</a>
+    </div>-->
+    <nav class = "navSuperior">
+      <div class = "btnAbre">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
+      </div>
+      <ul>
+          <li><a href="#">item 1</a></li>
+          <li><a href="#">item 2</a></li>
+          <li><a href="#">item 3</a></li>
+      </ul>
+  </nav>
+  <nav class = "menuLateral">
+      <div class = "titulo">Menu Lateral<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg btnFecha" viewBox="0 0 16 16">
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg></div>
+      <ul>
+          <li>
+              <a href = "#" class = "warehouse">Cadastrar<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaWarehouse" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensWarehouse">
+                  <li>
+                      <a href = "cadastraProduto.php">Cadastrar Produto</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "project">Menu2<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaProject" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensProject">
+                  <li>
+                      <a href = "#">Sub-Menu 2</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "po">Menu3<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaPO" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensPO">
+                  <li>
+                      <a href = "#">Sub-Menu 3</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "stage">Menu4<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaStage" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensStage">
+                  <li>
+                      <a href = "#">Sub-Menu 4</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "um">Menu5<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaUM" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensUM">
+                  <li>
+                      <a href = "#">Sub-Menu 5</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "material">Menu6<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaMaterial" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensMaterial">
+                  <li>
+                      <a href = "#">Sub-Menu 6</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "category">Menu7<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaCategory" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensCategory">
+                  <li>
+                      <a href = "#">Sub-Menu 7</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "vendor">Menu8<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaVendor" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensVendor">
+                  <li>
+                      <a href = "#">Sub-Menu 8</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "driver">Menu9<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaDriver" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensDriver">
+                  <li>
+                      <a href = "#">Sub-Menu 9</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+              <a href = "#" class = "user">Menu10<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill setaUser" viewBox="0 0 16 16">
+                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg></a>
+              <ul class = "itensUser">
+                  <li>
+                      <a href = "#">Sub-Menu 10</a>
+                  </li>
+              </ul>
+          </li>
+  
+          <li>
+              <div >
+                  <input class="btnSair" type="button" value="Sair">
+              </div>
+          </li>
+      </ul>
+  </nav>
+    <h1 class = "h1">myReleases</h1>
+
+    <p>
+      Essa pagina é do Manauera
+    
+    </p>
+
+    <script type = "text/javascript" src = "menuLateralAdmin.js"></script>
+  </body>
+</html>
+
