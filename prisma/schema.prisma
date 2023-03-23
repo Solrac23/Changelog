@@ -1,0 +1,50 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x", "windows"]
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DB_URL")
+}
+
+model Changelog {
+  id                     Int      @id @default(autoincrement())
+  versao                 String
+  date                   DateTime @default(now())
+  descricao              String?
+  major_changes          String?
+  major_changes_check    Boolean?
+  changed_features       String?
+  changed_features_check Boolean?
+  fix                    String?
+  fix_check              Boolean?
+  user_id                String
+  user                   User     @relation(fields: [user_id], references: [id])
+
+  @@map("changelogs")
+}
+
+model User {
+  id         String      @id @default(uuid())
+  name       String
+  email      String      @unique
+  password   String      @unique
+  role       Boolean     @default(false)
+  company_id Int         @unique
+  changelog  Changelog[]
+  company    Company     @relation(fields: [company_id], references: [id_company])
+
+  @@map("users")
+}
+
+model Company {
+  id_company  Int    @id @default(autoincrement())
+  nameCompany String
+  uf          String
+  city        String
+  user        User?
+
+  @@map("companys")
+}
