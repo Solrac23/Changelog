@@ -11,7 +11,7 @@
     "build": "webpack --mode=production "
   },
   "keywords": [],
-  "author": "Carlos Eduardo, Wesley Dutra, Maicon Vidi, Mateus Romanzini, Rafael Ramos",
+  "author": "Carlos Eduardo",
   "license": "MIT",
   "repository": {
     "type": "git",
