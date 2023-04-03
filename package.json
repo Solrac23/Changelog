@@ -7,22 +7,14 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "nodemon ./src/server.js cross-env NODE_ENV=dev",
+    "dev": "nodemon ./src/server.js",
     "build": "webpack --mode=production "
   },
   "keywords": [],
   "author": "Carlos Eduardo",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/testes4192107/changelog.git"
-  },
-  "bugs": {
-    "url": "https://gitlab.com/testes4192107/changelog/issues"
-  },
-  "homepage": "https://gitlab.com/testes4192107/changelog#readme",
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^4.12.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
     "core-js": "^3.29.1",
@@ -47,7 +39,7 @@
     "babel-loader": "^9.1.2",
     "eslint": "^8.34.0",
     "nodemon": "^2.0.20",
-    "prisma": "^4.11.0",
+    "prisma": "^4.12.0",
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1"
   }
