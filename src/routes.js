@@ -24,6 +24,7 @@ router.get('/changelog', authMiddleware, changeLogController.show)
 router.post('/changelog', authMiddleware, adminMiddleware, celebrate({
 	[Segments.BODY]: Joi.object().keys({
 		versao: Joi.string().regex(/\d{2}.\d{2}.\d{2}/).required(),
+		date: Joi.date().required(),
 		descricao: Joi.string().required(),
 		major_changes: Joi.string(),
 		major_changes_check: Joi.boolean(),
