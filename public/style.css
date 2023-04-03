@@ -1,23 +1,40 @@
 body {
-  font-family: sans-serif;
-  margin: auto;
-  max-width: 1280px;
+  font: 400 14px Arial, Helvetica, sans-serif;
+  background-color: #F0F0F5;
+  -webkit-font-smoothing: antialiased;
 }
 
-.navbar {
-  background-color: #313236;
-  border-radius: 2px;
-  max-width: 800px;
+input, button, label {
+  font: 400 18px Arial, Helvetica, sans-serif;
 }
 
-.navbar a {
-  color: #aaa;
-  display: inline-block;
-  font-size: 15px;
-  padding: 10px;
-  text-decoration: none;
+.container{ 
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar a:hover {
-  color: #ffffff;
+.login{
+  height: 650px;
+  width: 570px;
+  margin-left: 35vw;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.login h2{
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.login form {
+  
 }
