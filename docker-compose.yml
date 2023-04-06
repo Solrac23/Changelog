@@ -1,16 +1,30 @@
 version: '3.1'
 
 services:
-  changelog:
-    build: .
+  backend:
+    build:
+      context: .
+      target: dev
     command: npm run dev
     networks:
-      - mariadb
+      - backend
     ports:
       - "3355-3356:3355-3356"
     volumes:
       - .:/usr/app
+
 networks:
-  mariadb:
-    name: mariadb
-    external: false
+  backend:
+    name: changelog-backend
+    driver: bridge
+  # mariadb:
+  #   image: mariadb:latest
+  #   restart: always
+  #   ports:
+  #     - 3306:3308
+  #   environment:
+  #     MARIADB_ROOT_PASSWORD: 123456
+  #     MARIADB_HOST: mariadb
+  #     MARIADB_DATABASE: dev
+  #     MARIADB_USER: Shiroe
+  #     MARIADB_PASSWORD: 463855
