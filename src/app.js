@@ -38,9 +38,8 @@ app.use(errors((err, req, res, _next) => {
 	return res.status(500).json({ message: err })
 }))
 app.set('views', path.join(__dirname, 'views'))
-app.engine('html', require('ejs').renderFile)
-app.set('view engine', 'html')
+app.engine('ejs', require('ejs').renderFile)
+app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, '..', 'public')))
-app.use(express.static(path.join(__dirname, 'views'), { extensions: ['htm', 'html'] }))
 
 module.exports = app

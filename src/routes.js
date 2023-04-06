@@ -75,6 +75,7 @@ router.post('/user', celebrate({
 }, {
 	abortEarly: false,
 }), userController.store)
+router.get('/login', authController.show)
 router.post('/login', authController.authenticate)
 
 module.exports = router
