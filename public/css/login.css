@@ -6,11 +6,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-input, button, label {
+input,
+button,
+label {
   font: 400 18px 'Roboto', sans-serif;
 }
 
-.container{ 
+.container {
   height: 100vh;
   width: 100vw;
   margin: 0 auto;
@@ -19,24 +21,24 @@ input, button, label {
   align-items: center;
 }
 
-.login{
+.login {
   height: 410px;
   width: 450px;
   margin-left: 35vw;
-  padding-left: 2.5rem;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 1px 5px rgba(0, 0, 0,.15);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .15);
   border-radius: 6px;
+
 }
 
 .login a {
   width: 100%;
+  text-align: center;
   margin-top: 20px;
-  margin-left: calc(100% - 210px);
   text-decoration: none;
   color: #3571f3;
   font-size: 14px;
@@ -45,12 +47,12 @@ input, button, label {
   transition: text-decoration 0.5ms;
 }
 
-.login a:hover{
+.login a:hover {
   text-decoration: underline;
 }
 
-.login h2{
-  width: 300px;
+.login h2 {
+  width: 100%;
   font-weight: 400;
   text-align: center;
   font-size: 32px;
@@ -70,7 +72,7 @@ input, button, label {
 }
 
 .login form input {
-  width: 200px;
+  width: 100%;
   height: 32px;
   font-size: 14px;
   color: #666;
@@ -79,11 +81,16 @@ input, button, label {
   margin-bottom: 5px;
 }
 
+.btn-enter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .login form button[type="submit"] {
-  width: 50%;
+  width: 150px;
   border: 0;
   margin-top: 20px;
-  margin-left: 2rem;
   background-color: #5587f1;
   color: #fff;
   font-size: 16px;
