@@ -47,7 +47,7 @@ module.exports = {
 					fix_check: true
 				}
 			})
-			// res.render('changelog', {researchChangelog})
+			// return res.render('changelog', {researchChangelog})
 			return res.status(200).json(researchChangelog) 
 		} catch (err) {
 			console.error(err)
@@ -58,6 +58,7 @@ module.exports = {
 	async execute(req, res) {
 		const {
 			versao, 
+			date,
 			descricao, 
 			major_changes, 
 			major_changes_check,
@@ -81,11 +82,13 @@ module.exports = {
 		if(versionAlreadyExist) {
 			return res.status(400).json({ error: 'versao already exist!'})
 		}
+
 		try {
 
 			const changelog = await prismaClient.changelog.create({
 				data: {
 					versao,
+					date,
 					descricao,
 					major_changes,
 					major_changes_check,
@@ -100,6 +103,7 @@ module.exports = {
 					}
 				},
 			})
+
 			delete changelog.user_id
 			return res.status(201).json(changelog)
 		} catch(err) {
