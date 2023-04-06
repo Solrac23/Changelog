@@ -3,6 +3,9 @@ const { decrypt } = require('./util/cryptography')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
+	async show(req,res) {
+		return res.render('login')
+	},
 	async authenticate(req, res){
 		const {
 			email,
@@ -14,7 +17,7 @@ module.exports = {
 				email,
 			}
 		})
-
+		
 		if(!user){
 			return res.sendStatus(401)
 		}
@@ -27,7 +30,8 @@ module.exports = {
 
 		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { expiresIn: '1d'})
 		delete user.password
-		
+
+		res.redirect('/changelog')
 		return res.json({
 			user,
 			token
