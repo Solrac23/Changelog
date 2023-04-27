@@ -22,16 +22,17 @@ module.exports = {
 			return res.sendStatus(401)
 		}
 		
-		const isValidPassword = decrypt(password, user.password)
+		const isValidPassword = await decrypt(password, user.password)
 
 		if(!isValidPassword){
 			return res.sendStatus(401)
 		}
 
 		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { expiresIn: '1d'})
+		
 		delete user.password
+		delete user.role
 
-		res.redirect('/changelog')
 		return res.json({
 			user,
 			token
