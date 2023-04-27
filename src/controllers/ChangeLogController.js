@@ -10,9 +10,9 @@ module.exports = {
 					id: idToInt,
 				},
 				select: {
-					versao: true, 
+					version: true, 
 					date: true,
-					descricao: true, 
+					description: true, 
 					major_changes: true, 
 					major_changes_check: true,
 					changed_features: true,
@@ -21,7 +21,6 @@ module.exports = {
 					fix_check: true
 				}
 			})
-			
 			if(!oneChangelog){
 				return res.status(400).json({ error: 'id not exist or already deleted!'})
 			}
@@ -36,19 +35,22 @@ module.exports = {
 			const researchChangelog = await prismaClient.changelog.findMany({
 				select:{
 					id: true,
-					versao: true, 
+					version: true, 
 					date: true,
-					descricao: true, 
+					description: true, 
 					major_changes: true, 
 					major_changes_check: true,
 					changed_features: true,
 					changed_features_check: true,
 					fix: true,
 					fix_check: true
+				},
+				orderBy: {
+					version: 'asc'
 				}
 			})
-			// return res.render('changelog', {researchChangelog})
-			return res.status(200).json(researchChangelog) 
+			// return res.status(200).json(researchChangelog) 
+			return res.render('changelog', {researchChangelog})
 		} catch (err) {
 			console.error(err)
 		}
@@ -57,9 +59,9 @@ module.exports = {
 
 	async execute(req, res) {
 		const {
-			versao, 
+			version, 
 			date,
-			descricao, 
+			description, 
 			major_changes, 
 			major_changes_check,
 			changed_features,
@@ -72,10 +74,10 @@ module.exports = {
 		
 		const versionAlreadyExist = await prismaClient.changelog.findFirst({
 			where:{
-				versao,
+				version,
 			},
 			select:{
-				versao: true
+				version: true
 			}
 		})
 
@@ -87,9 +89,9 @@ module.exports = {
 
 			const changelog = await prismaClient.changelog.create({
 				data: {
-					versao,
+					version,
 					date,
-					descricao,
+					description,
 					major_changes,
 					major_changes_check,
 					changed_features,
@@ -107,7 +109,7 @@ module.exports = {
 			delete changelog.user_id
 			return res.status(201).json(changelog)
 		} catch(err) {
-			console.error(err.message)
+			console.error(err)
 		}
 	
 	},
@@ -116,9 +118,9 @@ module.exports = {
 		const { id } = req.params
 		let idToInt = Number(id)
 		const { 
-			versao,
+			version,
 			date,
-			descricao, 
+			description, 
 			major_changes, 
 			major_changes_check,
 			changed_features,
@@ -142,9 +144,9 @@ module.exports = {
 				id:idToInt,
 			},
 			data:{
-				versao,
+				version,
 				date,
-				descricao, 
+				description, 
 				major_changes, 
 				major_changes_check,
 				changed_features,
