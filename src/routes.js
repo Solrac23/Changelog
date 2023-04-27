@@ -2,15 +2,18 @@ const { Router } = require('express')
 const { celebrate, Joi, Segments } = require('celebrate')
 const authMiddleware = require('./middleware/authMiddleware')
 const adminMiddleware = require('./middleware/adminMiddleware')
-const ChangeLogController = require('./controllers/ChangeLogController')
-const UserController = require('./controllers/UserController')
-const AuthController = require('./controllers/AuthController')
+const changeLogController = require('./controllers/ChangeLogController')
+const userController = require('./controllers/UserController')
+const authController = require('./controllers/AuthController')
+const profileController = require('./controllers/ProfileController')
+const passwordController = require('./controllers/PasswordController')
 
 const router = Router()
 
-const changeLogController = ChangeLogController
-const userController = UserController
-const authController = AuthController
+// Move to page login 
+router.get('/', (req, res) => {
+	return res.redirect('/login')
+})
 
 router.get('/changelog/:id', authMiddleware, celebrate({
 	[Segments.PARAMS]: Joi.object().keys({
@@ -23,9 +26,9 @@ router.get('/changelog/:id', authMiddleware, celebrate({
 router.get('/changelog', authMiddleware, changeLogController.show)
 router.post('/changelog', authMiddleware, adminMiddleware, celebrate({
 	[Segments.BODY]: Joi.object().keys({
-		versao: Joi.string().regex(/\d{2}.\d{2}.\d{2}/).required(),
+		version: Joi.string().regex(/\d{2}.\d{2}.\d{2}/).required(),
 		date: Joi.date().required(),
-		descricao: Joi.string().required(),
+		description: Joi.string().required(),
 		major_changes: Joi.string(),
 		major_changes_check: Joi.boolean(),
 		changed_features: Joi.string(),
@@ -41,14 +44,14 @@ router.put('/changelog/:id', authMiddleware, adminMiddleware, celebrate({
 		id: Joi.number().required(),
 	}),
 	[Segments.BODY]: Joi.object().keys({
-		versao: Joi.string().regex(/\d{2}.\d{2}.\d{2}/).required(),
-		date: Joi.date().required(),
-		descricao: Joi.string().required(),
-		major_changes: Joi.string().required(),
+		version: Joi.string().regex(/\d{2}.\d{2}.\d{2}/),
+		date: Joi.date(),
+		description: Joi.string(),
+		major_changes: Joi.string(),
 		major_changes_check: Joi.boolean(),
-		changed_features: Joi.string().required(),
+		changed_features: Joi.string(),
 		changed_features_check: Joi.boolean(),
-		fix: Joi.string().required(),
+		fix: Joi.string(),
 		fix_check: Joi.boolean(),
 	})
 }, {
@@ -62,12 +65,28 @@ router.delete('/changelog/:id', authMiddleware, adminMiddleware, celebrate({
 	abortEarly: false,
 }), changeLogController.destroy)
 
+router.get('/profile', authMiddleware, profileController.show)
+router.put('/profile', authMiddleware, celebrate({
+	[Segments.BODY]: Joi.object().keys({
+		name: Joi.string(),
+		email: Joi.string().email().regex(/\w+@\w+\.\w+/),
+		nameCompany: Joi.string(),
+		uf: Joi.string().max(2),
+		city: Joi.string(),
+	})
+}, {
+	abortEarly: false,
+}), profileController.updated)
+
+router.get('/forgetpassword', passwordController.show)
+router.put('/forgetpassword', passwordController.changePassword)
+
 router.post('/user', celebrate({
 	[Segments.BODY]: Joi.object().keys({
 		name: Joi.string().required(),
-		email: Joi.string().email().required(),
+		email: Joi.string().email().regex(/\w+@\w+\.\w+/).required(),
 		password: Joi.string().required(),
-		role: Joi.boolean().default(false).required(),
+		role: Joi.string().regex(/User|ADMIN/),
 		nameCompany: Joi.string().required(),
 		uf: Joi.string().max(2).required(),
 		city: Joi.string().required()
