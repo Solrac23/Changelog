@@ -1,7 +1,13 @@
 * {
-  font-family: sans-serif;
   box-sizing: border-box;
   outline: 0;
   margin: 0;
   padding: 0;
+  --bg-color: #F0F0F5;
+  --bg-login: #fff;
+  --bg-button: #5587f1;
+  --shadow: rgba(0, 0, 0, .15);
+  --text-color1: #3571f3;
+  --text-color2: #666;
+  --border-color: #eee;
 }
