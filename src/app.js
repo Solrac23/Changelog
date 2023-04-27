@@ -9,16 +9,18 @@ const { errors } = require('celebrate')
 const path = require('path')
 const app = express()
 
-prismaClient.$connect()
-	.then(async () => {
-		await prismaClient.$disconnect()
-		console.log('Database is running')
-	})
-	.catch(async (err) => {
-		console.error(err)
+
+const db = async function(){
+	try {
+		await prismaClient.$connect()
+		console.log('Database is running!')	
+	} catch (e) {
+		console.log(e)
 		await prismaClient.$disconnect()
 		process.exit(1)
-	})
+	}
+}
+db()
 
 app.use(helmet({
 	referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
