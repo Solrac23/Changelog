@@ -4,16 +4,15 @@ generator client {
 }
 
 datasource db {
-  provider          = "mysql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DB_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Changelog {
   id                     Int      @id @default(autoincrement())
-  versao                 String
-  date                   DateTime @db.Date
-  descricao              String?
+  version                String
+  date                   DateTime
+  description            String?
   major_changes          String?
   major_changes_check    Boolean?
   changed_features       String?
@@ -21,8 +20,11 @@ model Changelog {
   fix                    String?
   fix_check              Boolean?
   user_id                String
+  createAt               DateTime @default(now())
+  updateAt               DateTime @updatedAt
   user                   User     @relation(fields: [user_id], references: [id])
 
+  @@index([user_id], map: "changelogs_user_id_fkey")
   @@map("changelogs")
 }
 
@@ -30,8 +32,8 @@ model User {
   id         String      @id @default(uuid())
   name       String
   email      String      @unique
-  password   String      @unique
-  role       Boolean     @default(false)
+  password   String
+  role       Role        @default(USER)
   company_id Int         @unique
   changelog  Changelog[]
   company    Company     @relation(fields: [company_id], references: [id_company])
@@ -47,4 +49,9 @@ model Company {
   user        User?
 
   @@map("companys")
+}
+
+enum Role {
+  USER
+  ADMIN
 }

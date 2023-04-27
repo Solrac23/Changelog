@@ -2,7 +2,7 @@
 CREATE TABLE `changelogs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `versao` VARCHAR(191) NOT NULL,
-    `date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `date` DATE NOT NULL,
     `descricao` VARCHAR(191) NULL,
     `major_changes` VARCHAR(191) NULL,
     `major_changes_check` BOOLEAN NULL,
@@ -45,3 +45,4 @@ ALTER TABLE `changelogs` ADD CONSTRAINT `changelogs_user_id_fkey` FOREIGN KEY (`
 
 -- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_company_id_fkey` FOREIGN KEY (`company_id`) REFERENCES `companys`(`id_company`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
