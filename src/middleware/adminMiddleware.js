@@ -12,7 +12,7 @@ module.exports = async function adminMiddleware(req, res, next) {
 		}
 	})
 	
-	if(role){
+	if(role !== 'USER'){
 		return next()
 	}
 
