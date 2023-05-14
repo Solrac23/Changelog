@@ -1,27 +1,36 @@
-const path = require('path')
+const path = require('node:path')
+const nodeExternals = require('webpack-node-externals')
 
-module.exports = {
-	mode: 'production',
-	entry: ['@babel/polyfill','./src/app.js'],
-	output: {
-		filename: 'bundle.js',
-		path: path.resolve(__dirname, 'dist')
-	},
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				exclude: '/node_modules/',
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: ['@babel/env'],
-						compact: true,
+module.exports = (env, argv) => {
+	const SERVER_PATH = argv.mode === 'production' ? 
+		'./src/server.js' : ''
+
+	return({
+		mode: argv.mode,
+		target: 'node',
+		entry: {
+			server: SERVER_PATH
+		},
+		output: {
+			path: path.resolve(__dirname, 'dist'),
+			publicPath: '/',
+			filename: '[name].js',
+		},
+		node: {
+			__dirname: true,
+			__filename: true,
+		},
+		externals:[nodeExternals()],
+		module: {
+			rules: [
+				{
+					exclude: /node_modules/,
+					test: /\.js$/,
+					use: {
+						loader: 'babel-loader',
 					}
-				}
-			}
-		]
-	}
+				},
+			]
+		},
+	})
 }
-
-// how setting webpack to production ?
