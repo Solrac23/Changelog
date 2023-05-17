@@ -5,3 +5,4 @@ migration_lock.toml
 package-lock.json
 prisma/migrations__sqlite
 prisma/dev.db
+dist
