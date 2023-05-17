@@ -3,7 +3,7 @@ const { decrypt } = require('./util/cryptography')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-	async show(req,res) {
+	show(req,res) {
 		return res.render('login')
 	},
 	async authenticate(req, res){
