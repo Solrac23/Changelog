@@ -12,7 +12,7 @@ const router = Router()
 
 // Move to page login 
 router.get('/', (req, res) => {
-	return res.redirect('/login')
+	return res.redirect('/auth/login')
 })
 
 router.get('/changelog/:id', authMiddleware, celebrate({
@@ -85,8 +85,8 @@ router.post('/user', celebrate({
 	[Segments.BODY]: Joi.object().keys({
 		name: Joi.string().required(),
 		email: Joi.string().email().regex(/\w+@\w+\.\w+/).required(),
-		password: Joi.string().required(),
-		role: Joi.string().regex(/User|ADMIN/),
+		password: Joi.string().min(6).required(),
+		role: Joi.string().regex(/USER|ADMIN/),
 		nameCompany: Joi.string().required(),
 		uf: Joi.string().max(2).required(),
 		city: Joi.string().required()
@@ -94,7 +94,7 @@ router.post('/user', celebrate({
 }, {
 	abortEarly: false,
 }), userController.store)
-router.get('/login', authController.show)
-router.post('/login', authController.authenticate)
+router.get('/auth/login', authController.show)
+router.post('/auth/login', authController.authenticate)
 
 module.exports = router
