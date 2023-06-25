@@ -6,33 +6,34 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
-	<link rel="stylesheet" href="/css/global.css">
-	<link rel="stylesheet" href="/css/login.css">
+	<link rel="icon" href="/public/img/favicon.ico" sizes="32x32" type="image/png">
+	<link rel="stylesheet" href="/public/css/global.css">
+	<link rel="stylesheet" href="/public/css/login.css">
 </head>
 
 <body>
 	<div class="container">
 		<div class="login">
 			<h2>Login</h2>
-			<form action="/login" method="post" autocomplete="on" novalidate>
+			<form action="/auth/login" method="post" autocomplete="on">
 				<div class="form-group">
-					<label for="email">Email:</label>
-					<input type="email" name="email" id="email" placeholder="Digite seu Email">
+					<label for="email">E-mail:</label>
+					<input type="email" name="email" id="email"  autocomplete="email" placeholder="you@example.com">
 				</div>
 				<div class="form-group">
 					<label for="password">Password:</label>
-					<input type="password" name="password" id="password" placeholder="Digite sua senha">
+					<input type="password" name="password" id="password" placeholder="••••••••">
 				</div>
 				<div class="password-forget">
 					<a href="/forgetpassword">Esqueceu a senha?</a>
 				</div>
 				<div class="btn-enter">
-					<button type="submit" class="btn">Entrar</button>
+					<button type="submit" disabled class="btn">Entrar</button>
 				</div>
 			</form>
 			<a href="/user">Seu primeiro acesso?</a>
 		</div>
 	</div>
-	<script src="/js/script.js"></script>
+	<script src="/public/js/login.js"></script>
 </body>
 </html>
