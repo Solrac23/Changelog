@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
+const { AppErros } = require('../errors/appErros')
 
 module.exports = function authMiddleware(req, res, next){
 	const { authorization } = req.headers
-
+	
 	if(!authorization){
-		return res.sendStatus(401)
+		throw new AppErros('Unauthorized!', 401)
 	}
-
 	const token = authorization.replace('Bearer', '').trim()
 
 	try {
@@ -16,8 +16,7 @@ module.exports = function authMiddleware(req, res, next){
 					name: 'TokenExpiredError',
 					message: 'Token expired, please login again!',
 				}
-
-				throw new Error(err.message)
+				throw new jwt.TokenExpiredError(err.message)
 			}else {
 				return decoded
 			}
