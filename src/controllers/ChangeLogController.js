@@ -1,9 +1,11 @@
 const prismaClient = require('../database/prismaClient')
+const { AppErros } = require('../errors/appErros')
 
 module.exports = {
 	async index(req, res) {
 		const { id } = req.params
 		let idToInt = Number(id)
+	
 		try {
 			const oneChangelog = await prismaClient.changelog.findFirst({
 				where: {
@@ -22,7 +24,7 @@ module.exports = {
 				}
 			})
 			if(!oneChangelog){
-				return res.status(400).json({ error: 'id not exist or already deleted!'})
+				throw new AppErros('id not found or already deleted!')
 			}
 
 			return res.status(200).json(oneChangelog)
@@ -31,6 +33,7 @@ module.exports = {
 		}
 	},
 	async show(req, res) {
+		console.log(req.session.token)
 		try {
 			const researchChangelog = await prismaClient.changelog.findMany({
 				select:{
@@ -46,13 +49,13 @@ module.exports = {
 					fix_check: true
 				},
 				orderBy: {
-					version: 'asc'
-				}
+					version: 'asc',
+				},
 			})
-			// return res.status(200).json(researchChangelog) 
-			return res.render('changelog', {researchChangelog})
+			return res.status(200).json(researchChangelog) 
+			// return res.render('changelog', {researchChangelog})
 		} catch (err) {
-			console.error(err)
+			console.error(err.message)
 		}
 		
 	},
@@ -71,7 +74,11 @@ module.exports = {
 		} = req.body
 
 		const {userId} = req
-		
+
+		if(!userId){
+			throw new AppErros('Id not found or not found!')
+		}
+
 		const versionAlreadyExist = await prismaClient.changelog.findFirst({
 			where:{
 				version,
@@ -82,7 +89,7 @@ module.exports = {
 		})
 
 		if(versionAlreadyExist) {
-			return res.status(400).json({ error: 'versao already exist!'})
+			throw new AppErros('versao already exist!')
 		}
 
 		try {
@@ -109,7 +116,7 @@ module.exports = {
 			delete changelog.user_id
 			return res.status(201).json(changelog)
 		} catch(err) {
-			console.error(err)
+			console.error(err.message)
 		}
 	
 	},
@@ -136,27 +143,32 @@ module.exports = {
 		})
 
 		if(!alreadyExist){
-			return res.status(404).json({error: 'Id not exist or already deleted!'})
+			throw new AppErros('Id not found or already deleted!', 404)
 		}
 		
-		const updateChangelog = await prismaClient.changelog.update({
-			where:{
-				id:idToInt,
-			},
-			data:{
-				version,
-				date,
-				description, 
-				major_changes, 
-				major_changes_check,
-				changed_features,
-				changed_features_check,
-				fix,
-				fix_check
-			}
-		})
-	
-		return res.status(201).json(updateChangelog)
+		try {
+			const updateChangelog = await prismaClient.changelog.update({
+				where:{
+					id:idToInt,
+				},
+				data:{
+					version,
+					date,
+					description, 
+					major_changes, 
+					major_changes_check,
+					changed_features,
+					changed_features_check,
+					fix,
+					fix_check
+				}
+			})
+		
+			return res.status(201).json(updateChangelog)
+		} catch (err) {
+			console.error(err.message)
+		}
+		
 	},
 
 	async destroy(req, res){
@@ -170,7 +182,7 @@ module.exports = {
 		})
 		
 		if(!alreadyExist){
-			return res.status(404).json({error: 'Id not exist or already deleted!'})
+			throw new AppErros('Id not found or already deleted!', 404)
 		}
 
 		await prismaClient.changelog.delete({
@@ -180,7 +192,7 @@ module.exports = {
 			
 		})
 
-		return res.status(204).send()
+		return res.sendStatus(204)
 	}
 }
 

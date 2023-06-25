@@ -8,4 +8,4 @@ function decrypt(pass, passToDATABASE){
 	return bcryptjs.compare(pass, passToDATABASE)
 }
 
-module.exports = {crypt, decrypt}
+module.exports = Object.freeze({crypt, decrypt})

@@ -1,5 +1,6 @@
 const prismaClient = require('../database/prismaClient')
 const { decrypt } = require('./util/cryptography')
+const {AppErros} = require('../errors/appErros')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
@@ -12,31 +13,31 @@ module.exports = {
 			password
 		} = req.body
 
+		if(!email || !password){
+			throw new AppErros('Please provide email and password!')
+		}
+		
 		const user = await prismaClient.user.findFirst({
 			where:{
 				email,
 			}
 		})
 		
-		if(!user){
-			return res.sendStatus(401)
-		}
-		
 		const isValidPassword = await decrypt(password, user.password)
-
-		if(!isValidPassword){
-			return res.sendStatus(401)
+		
+		if(!user || !isValidPassword){
+			throw new AppErros('Incorrect email or password!', 401)
 		}
 
-		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { expiresIn: '1d'})
-		
+		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { 
+			expiresIn: process.env.TOKEN_EXPIRES_IN
+		})
+		req.session.token = token
+		// delete sensitive data from response object
 		delete user.password
 		delete user.role
-
-		return res.json({
-			user,
-			token
-		})
+		
+		return res.json({ token, user })
 	}
 	
 }

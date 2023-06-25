@@ -1,4 +1,5 @@
 const prismaClient = require('../database/prismaClient')
+const { AppErros } = require('../errors/appErros')
 const {crypt} = require('./util/cryptography')
 
 module.exports = {
@@ -26,11 +27,11 @@ module.exports = {
 		})
 
 		if(!user) {
-			return res.status(400).json({error: 'Its email not exist!'})
+			throw new AppErros('E-mail not exist!')
 		}
 
 		if(new_password !== confirm_password){
-			return res.status(400).json({ error: 'Password is different!'})
+			throw new AppErros('Password is not match!')
 		}
 
 		const pass = crypt(new_password)
@@ -47,7 +48,7 @@ module.exports = {
 			})
 			return res.sendStatus(204)
 		} catch (err) {
-			console.error(err)
+			console.error(err.message)
 		}
 	},
 }

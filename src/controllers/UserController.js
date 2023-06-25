@@ -1,5 +1,6 @@
 const prismaClient = require('../database/prismaClient')
 const { crypt } = require('./util/cryptography')
+const { AppErros } = require('../errors/appErros')
 
 module.exports = {
 	async store(req, res){
@@ -15,12 +16,8 @@ module.exports = {
 	
 		const pass = crypt(password)
 		
-		if(!email){
-			return res.status(400).json({ error: 'Email already exist'})
-		}
-
-		if(!password){
-			return res.status(400).json({ error: 'Password already exist'})
+		if(!email || !password){
+			throw new AppErros('E-mail/pssword incorrect!')
 		}
 		
 		const userAlreadyExist = await prismaClient.user.findFirst({
@@ -30,7 +27,7 @@ module.exports = {
 		})
 		
 		if(userAlreadyExist){
-			return res.status(409).json({ error: 'User already exist!'})
+			throw new AppErros('User already exist!', 409)
 		}
 
 		const users = await prismaClient.user.create({

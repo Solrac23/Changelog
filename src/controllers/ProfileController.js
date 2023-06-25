@@ -1,11 +1,12 @@
 const prismaClient = require('../database/prismaClient')
+const { AppErros } = require('../errors/appErros')
 
 module.exports = {
 	async show(req, res){
 		const {userId} = req
 
 		if(!userId) {
-			return res.status(400).json({error: 'Profile not exist or Id not found.'})
+			throw new AppErros('Profile not exist or Id not found.')
 		}
 
 		const profile = await prismaClient.user.findFirst({
@@ -34,7 +35,7 @@ module.exports = {
 		const { userId } = req
 
 		if(!userId) {
-			return res.status(400).json({error: 'Profile not exist or Id not found.'})
+			throw new AppErros('Profile not exist or Id not found.')
 		}
 
 		const updateProfile = await prismaClient.user.update({
