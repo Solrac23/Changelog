@@ -5,7 +5,7 @@ services:
     build:
       context: .
       target: dev
-    command: npm run dev
+    command: pnpm dev
     networks:
       - backend
     ports:

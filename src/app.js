@@ -6,9 +6,6 @@ const {connection} = require('./database/connection')
 const cors = require('cors')
 const morgan = require('morgan')
 const { errors } = require('celebrate')
-const path = require('node:path')
-require('core-js/stable')
-require('regenerator-runtime/runtime')
 const app = express()
 
 if(process.env.NODE_ENV === 'development'){
@@ -26,12 +23,6 @@ connection() // Verifica conexao do banco de dados
 
 app.use(express.urlencoded({ extended: true, limit: '2026kb' }))
 app.use(express.json())
-
-app.set('views', path.join(__dirname, 'views'))
-app.engine('ejs', require('ejs').renderFile)
-app.set('view engine', 'ejs')
-app.use(express.static(path.join(__dirname, '..', 'public', 'img', 'favicon.icon')))
-app.use(express.static(path.join(__dirname, '..')))
 
 app.set('trust proxy', 1)
 app.disable('x-powered-by')
