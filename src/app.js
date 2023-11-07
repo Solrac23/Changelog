@@ -1,5 +1,5 @@
 const express = require('express')
-const cookieSession = require('cookie-session')
+// const cookieSession = require('cookie-session')
 require('express-async-errors')
 const router = require('./routes')
 const {connection} = require('./database/connection')
@@ -26,17 +26,17 @@ app.use(express.json())
 
 app.set('trust proxy', 1)
 app.disable('x-powered-by')
-let expiryDate = new Date(Date.now() + process.env.COOKIE_EXPIRES_IN * 60 * 60 * 1000)
-app.use(cookieSession({
-	name:'authcookie',
-	keys:[process.env.SECRET_KEY],
-	secure: false,
-	httpOnly: true,
-	domain: 'localhost',
-	path: '/auth/login',
-	expires: expiryDate,
-	sameSite: 'strict',
-}))
+// let expiryDate = new Date(Date.now() + process.env.COOKIE_EXPIRES_IN * 60 * 60 * 1000)
+// app.use(cookieSession({
+// 	name:'authcookie',
+// 	keys:[process.env.SECRET_KEY],
+// 	secure: false,
+// 	httpOnly: true,
+// 	domain: 'localhost',
+// 	path: '/auth/login',
+// 	expires: expiryDate,
+// 	sameSite: 'strict',
+// }))
 app.use(router)
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _next) => {
