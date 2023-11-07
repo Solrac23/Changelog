@@ -78,7 +78,6 @@ router.put('/profile', authMiddleware, celebrate({
 	abortEarly: false,
 }), profileController.updated)
 
-router.get('/forgetpassword', passwordController.show)
 router.put('/forgetpassword', passwordController.changePassword)
 
 router.post('/user', celebrate({
@@ -94,7 +93,6 @@ router.post('/user', celebrate({
 }, {
 	abortEarly: false,
 }), userController.store)
-router.get('/auth/login', authController.show)
 router.post('/auth/login', authController.authenticate)
 
 module.exports = router
