@@ -3,9 +3,6 @@ const { AppErros } = require('../errors/appErros')
 const {crypt} = require('./util/cryptography')
 
 module.exports = {
-	show(req, res) {
-		return res.render('password')
-	},
 	async changePassword(req, res) {
 		const {
 			email,
@@ -14,7 +11,7 @@ module.exports = {
 		} = req.body
 
 		if(!email) {
-			return res.sendStatus(400)
+			throw new AppErros('Bad Request', 400)
 		}
 
 		const user = await prismaClient.user.findFirst({

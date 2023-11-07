@@ -4,9 +4,6 @@ const {AppErros} = require('../errors/appErros')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-	show(req,res) {
-		return res.render('login')
-	},
 	async authenticate(req, res){
 		const {
 			email,
@@ -32,7 +29,7 @@ module.exports = {
 		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { 
 			expiresIn: process.env.TOKEN_EXPIRES_IN
 		})
-		req.session.token = token
+		
 		// delete sensitive data from response object
 		delete user.password
 		delete user.role

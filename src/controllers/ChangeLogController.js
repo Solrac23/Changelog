@@ -33,7 +33,6 @@ module.exports = {
 		}
 	},
 	async show(req, res) {
-		console.log(req.session.token)
 		try {
 			const researchChangelog = await prismaClient.changelog.findMany({
 				select:{
@@ -53,7 +52,6 @@ module.exports = {
 				},
 			})
 			return res.status(200).json(researchChangelog) 
-			// return res.render('changelog', {researchChangelog})
 		} catch (err) {
 			console.error(err.message)
 		}
