@@ -1,6 +1,7 @@
-const prismaClient = require('../database/prismaClient')
-const { AppErros } = require('../errors/appErros')
-module.exports = async function adminMiddleware(req, res, next) {
+import prismaClient from '../database/prismaClient.js'
+import {AppErros} from '../errors/appErros.js'
+
+export default async function adminMiddleware(req, res, next) {
 	const {userId} = req
 	
 	if(!userId){

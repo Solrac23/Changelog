@@ -1,7 +1,7 @@
-const prismaClient = require('../database/prismaClient')
-const { AppErros } = require('../errors/appErros')
+import prismaClient from '../database/prismaClient.js'
+import { AppErros } from '../errors/appErros.js'
 
-module.exports = {
+export default {
 	async show(req, res){
 		const {userId} = req
 
@@ -14,12 +14,13 @@ module.exports = {
 				id: userId,
 			},
 			select: {
+				id: true,
 				name: true,
 				email: true,
 				company: true
 			}
 		})
-		delete profile.company.id_company
+
 		return res.status(200).json(profile)
 	},
 

@@ -1,8 +1,8 @@
-const prismaClient = require('../database/prismaClient')
-const { AppErros } = require('../errors/appErros')
-const {crypt} = require('./util/cryptography')
+import prismaClient from '../database/prismaClient.js'
+import { AppErros } from '../errors/appErros.js'
+import {crypt} from './util/cryptography.js'
 
-module.exports = {
+export default {
 	async changePassword(req, res) {
 		const {
 			email,

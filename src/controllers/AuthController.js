@@ -1,9 +1,9 @@
-const prismaClient = require('../database/prismaClient')
-const { decrypt } = require('./util/cryptography')
-const {AppErros} = require('../errors/appErros')
-const jwt = require('jsonwebtoken')
+import prismaClient from '../database/prismaClient.js'
+import { decrypt } from './util/cryptography.js'
+import {AppErros} from '../errors/appErros.js'
+import jwt from 'jsonwebtoken'
 
-module.exports = {
+export default {
 	async authenticate(req, res){
 		const {
 			email,
@@ -17,6 +17,14 @@ module.exports = {
 		const user = await prismaClient.user.findFirst({
 			where:{
 				email,
+			},
+			select: {
+				id: true,
+				name: true,
+				email: true,
+				password: true,
+				role: true,
+				company: true
 			}
 		})
 		
@@ -32,7 +40,6 @@ module.exports = {
 		
 		// delete sensitive data from response object
 		delete user.password
-		delete user.role
 		
 		return res.json({ token, user })
 	}

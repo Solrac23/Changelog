@@ -1,7 +1,7 @@
-const prismaClient = require('../database/prismaClient')
-const { AppErros } = require('../errors/appErros')
+import prismaClient from '../database/prismaClient.js'
+import { AppErros } from '../errors/appErros.js'
 
-module.exports = {
+export default {
 	async index(req, res) {
 		const { id } = req.params
 		let idToInt = Number(id)
@@ -111,7 +111,6 @@ module.exports = {
 				},
 			})
 
-			delete changelog.user_id
 			return res.status(201).json(changelog)
 		} catch(err) {
 			console.error(err.message)

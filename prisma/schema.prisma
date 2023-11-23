@@ -9,23 +9,52 @@ datasource db {
 }
 
 model Changelog {
-  id                     Int      @id @default(autoincrement())
-  version                String
-  date                   DateTime
-  description            String?
-  major_changes          String?
-  major_changes_check    Boolean?
-  changed_features       String?
-  changed_features_check Boolean?
-  fix                    String?
-  fix_check              Boolean?
-  user_id                String
-  createAt               DateTime @default(now())
-  updateAt               DateTime @updatedAt
-  user                   User     @relation(fields: [user_id], references: [id])
+  id            Int      @id @default(autoincrement())
+  version       String
+  date          DateTime
+  user_id       String
+  user          User     @relation(fields: [user_id], references: [id])
+  label_id      Int
+  label         Label?   @relation(fields: [label_id], references: [id])
+  categories_id Int
+  category      Category @relation(fields: [categories_id], references: [id])
+  imagem        Imagem[]
+  createAt      DateTime @default(now())
+  updateAt      DateTime @updatedAt
 
   @@index([user_id], map: "changelogs_user_id_fkey")
   @@map("changelogs")
+}
+
+model Category {
+  id        Int         @id @default(autoincrement())
+  title     String?     @db.LongText
+  category  String?     @db.VarChar(500)
+  changelog Changelog[]
+  createAt  DateTime    @default(now())
+  updateAt  DateTime    @updatedAt
+
+  @@map("categories")
+}
+
+model Label {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(12)
+  changelog Changelog[]
+  createAt  DateTime    @default(now())
+  updateAt  DateTime    @updatedAt
+
+  @@map("labels")
+}
+
+model Imagem {
+  id           String    @id @default(uuid())
+  path         String?   @db.VarChar(500)
+  changelog_id Int
+  changelog    Changelog @relation(fields: [changelog_id], references: [id])
+  createAt     DateTime  @default(now())
+
+  @@map("imagem")
 }
 
 model User {
@@ -37,16 +66,20 @@ model User {
   company_id Int         @unique
   changelog  Changelog[]
   company    Company     @relation(fields: [company_id], references: [id_company])
+  createAt   DateTime    @default(now())
+  updateAt   DateTime    @updatedAt
 
   @@map("users")
 }
 
 model Company {
-  id_company  Int    @id @default(autoincrement())
-  nameCompany String
+  id_company  Int      @id @default(autoincrement())
+  CompanyName String
   uf          String
   city        String
   user        User?
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
 
   @@map("companys")
 }

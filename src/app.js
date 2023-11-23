@@ -1,11 +1,12 @@
-const express = require('express')
+import express from 'express'
 // const cookieSession = require('cookie-session')
-require('express-async-errors')
-const router = require('./routes')
-const {connection} = require('./database/connection')
-const cors = require('cors')
-const morgan = require('morgan')
-const { errors } = require('celebrate')
+import 'express-async-errors'
+import router from './routes.js'
+import {connection} from './database/connection.js'
+import cors from 'cors'
+import morgan from 'morgan'
+import { errors } from 'celebrate'
+
 const app = express()
 
 if(process.env.NODE_ENV === 'development'){
@@ -58,4 +59,4 @@ app.use(errors((err, req, res, _next) => {
 	return res.status(500).json({ message: err.message })
 }))
 
-module.exports = app
+export {app}

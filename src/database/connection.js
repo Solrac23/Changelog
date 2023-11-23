@@ -1,4 +1,4 @@
-const prismaClient = require('./prismaClient')
+import prismaClient from './prismaClient.js'
 
 async function connection(){
 	try {
@@ -11,4 +11,4 @@ async function connection(){
 	}
 }
 
-module.exports = Object.freeze({connection})
+export {connection}

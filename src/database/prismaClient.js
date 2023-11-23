@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client'
 
 const prismaClient = new PrismaClient({
 	log: [
@@ -16,4 +16,4 @@ prismaClient.$on('query', (e) => {
 	console.log(`Duration: ${e.duration}ms`)
 })
 
-module.exports = prismaClient
+export default prismaClient

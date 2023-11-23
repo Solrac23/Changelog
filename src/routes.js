@@ -1,19 +1,14 @@
-const { Router } = require('express')
-const { celebrate, Joi, Segments } = require('celebrate')
-const authMiddleware = require('./middleware/authMiddleware')
-const adminMiddleware = require('./middleware/adminMiddleware')
-const changeLogController = require('./controllers/ChangeLogController')
-const userController = require('./controllers/UserController')
-const authController = require('./controllers/AuthController')
-const profileController = require('./controllers/ProfileController')
-const passwordController = require('./controllers/PasswordController')
+import { Router } from 'express'
+import { celebrate, Joi, Segments } from'celebrate'
+import authMiddleware from'./middleware/authMiddleware.js'
+import adminMiddleware from'./middleware/adminMiddleware.js'
+import changeLogController from'./controllers/ChangeLogController.js'
+import userController from'./controllers/UserController.js'
+import authController from'./controllers/AuthController.js'
+import profileController from'./controllers/ProfileController.js'
+import passwordController from'./controllers/PasswordController.js'
 
 const router = Router()
-
-// Move to page login 
-router.get('/', (req, res) => {
-	return res.redirect('/auth/login')
-})
 
 router.get('/changelog/:id', authMiddleware, celebrate({
 	[Segments.PARAMS]: Joi.object().keys({
@@ -93,6 +88,7 @@ router.post('/user', celebrate({
 }, {
 	abortEarly: false,
 }), userController.store)
+
 router.post('/auth/login', authController.authenticate)
 
-module.exports = router
+export default router

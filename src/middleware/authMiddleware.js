@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken')
-const { AppErros } = require('../errors/appErros')
+import jwt from 'jsonwebtoken'
+import { AppErros } from '../errors/appErros.js'
 
-module.exports = function authMiddleware(req, res, next){
+export default function authMiddleware(req, res, next){
 	const { authorization } = req.headers
 	
 	if(!authorization){

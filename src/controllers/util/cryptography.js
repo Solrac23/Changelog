@@ -1,11 +1,11 @@
-const bcryptjs = require('bcryptjs')
+import bcrypt from 'bcryptjs'
 
 function crypt(pass){
-	return bcryptjs.hashSync(pass, 8)
+	return bcrypt.hashSync(pass, 8)
 }
 
 function decrypt(pass, passToDATABASE){
-	return bcryptjs.compare(pass, passToDATABASE)
+	return bcrypt.compare(pass, passToDATABASE)
 }
 
-module.exports = Object.freeze({crypt, decrypt})
+export {crypt, decrypt}
