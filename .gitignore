@@ -3,6 +3,8 @@ node_modules
 .env
 migration_lock.toml
 package-lock.json
-pnpm-lock.json
+pnpm-lock.yaml
 prisma/migrations__sqlite
 prisma/dev.db
+tmp/uploads
+migrations/
