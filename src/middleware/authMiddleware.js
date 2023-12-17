@@ -5,7 +5,7 @@ export default function authMiddleware(req, res, next){
 	const { authorization } = req.headers
 	
 	if(!authorization){
-		throw new AppErros('Unauthorized!', 401)
+		throw new AppErros('Token not found!', 401)
 	}
 	const token = authorization.replace('Bearer', '').trim()
 
