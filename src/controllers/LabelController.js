@@ -16,6 +16,8 @@ export default {
 			return res.status(200).json(labels)
 		} catch (error) {
 			console.error(error.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 
@@ -34,6 +36,8 @@ export default {
 			return res.status(201).json(label)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 		
 	},
@@ -60,6 +64,8 @@ export default {
 			return res.status(200).json(edit)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 }

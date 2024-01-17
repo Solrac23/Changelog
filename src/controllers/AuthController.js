@@ -13,35 +13,42 @@ export default {
 		if(!email || !password){
 			throw new AppErros('Please provide email and password!')
 		}
-		
-		const user = await prismaClient.user.findFirst({
-			where:{
-				email,
-			},
-			select: {
-				id: true,
-				name: true,
-				email: true,
-				password: true,
-				role: true,
-				company: true
-			}
-		})
-		
-		const isValidPassword = await decrypt(password, user.password)
-		
-		if(!user || !isValidPassword){
-			throw new AppErros('Incorrect email or password!', 401)
-		}
 
-		const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { 
-			expiresIn: process.env.TOKEN_EXPIRES_IN
-		})
+		try {
+			const user = await prismaClient.user.findFirst({
+				where:{
+					email,
+				},
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					password: true,
+					role: true,
+					company: true
+				}
+			})
+			
+			const isValidPassword = await decrypt(password, user.password)
+			
+			if(!user || !isValidPassword){
+				throw new AppErros('Incorrect email or password!', 401)
+			}
+	
+			const token = jwt.sign({id: user.id}, process.env.TOKEN_SECRET, { 
+				expiresIn: process.env.TOKEN_EXPIRES_IN
+			})
+			
+			// delete sensitive data from response object
+			delete user.password
+			
+			return res.json({ token, user })
+		} catch (err) {
+			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
+		}
 		
-		// delete sensitive data from response object
-		delete user.password
-		
-		return res.json({ token, user })
 	}
 	
 }

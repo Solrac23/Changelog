@@ -25,6 +25,8 @@ export default {
 			return res.status(200).json(users)
 		} catch (err) {
 			console.warn(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 
@@ -35,21 +37,28 @@ export default {
 			throw new AppErros('Profile not exist or Id not found.')
 		}
 
-		const userProfile = await prismaClient.user.findFirst({
-			where:{
-				id: userId,
-			},
-			select: {
-				id: true,
-				name: true,
-				email: true,
-				createAt: true,
-				updateAt: true,
-				company: true
-			}
-		})
-
-		return res.status(200).json(userProfile)
+		try{
+			const userProfile = await prismaClient.user.findFirst({
+				where:{
+					id: userId,
+				},
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					createAt: true,
+					updateAt: true,
+					company: true
+				}
+			})
+	
+			return res.status(200).json(userProfile)
+		}catch(err){
+			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
+		}
+		
 	},
 
 	async store(req, res){
@@ -98,10 +107,16 @@ export default {
 					company: true,
 				},
 			})
-			return res.status(201).json(user)
+
+			delete user.password
+			delete user.role
+
+			return res.sendStatus(201)
 		} catch (err) {
 			console.error(err.message)
-		}	
+		}finally{
+			await prismaClient.$disconnect()
+		}
 	
 	},
 	async updated(req, res){
@@ -146,6 +161,8 @@ export default {
 			return res.status(201).json(updateUser)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 
@@ -172,6 +189,8 @@ export default {
 			return res.sendStatus(204)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 		
 	},

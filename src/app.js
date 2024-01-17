@@ -21,6 +21,7 @@ app.use(cors({
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	allowedHeaders: ['Content-Type', 'Authorization', 'Set-Cookie'],
 	optionsSuccessStatus: 200,
+	credentials: true
 }))
 
 connection() // Verifica conexao do banco de dados

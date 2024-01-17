@@ -17,14 +17,14 @@ networks:
   backend:
     name: changelog-backend
     driver: bridge
-  # mariadb:
-  #   image: mariadb:latest
-  #   restart: always
-  #   ports:
-  #     - 3306:3308
-  #   environment:
-  #     MARIADB_ROOT_PASSWORD: 123456
-  #     MARIADB_HOST: mariadb
-  #     MARIADB_DATABASE: dev
-  #     MARIADB_USER: Shiroe
-  #     MARIADB_PASSWORD: 463855
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - 3306:3308
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
+      MARIADB_HOST: mariadb
+      MARIADB_DATABASE: dev
+      MARIADB_USER: Shiroe
+      MARIADB_PASSWORD: 463855

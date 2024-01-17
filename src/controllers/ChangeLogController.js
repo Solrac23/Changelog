@@ -60,6 +60,8 @@ export default {
 			return res.status(200).json(oneChangelog)
 		} catch (err) {
 			console.error(err)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 	async show(req, res) {
@@ -117,6 +119,8 @@ export default {
 			return res.status(200).json(researchChangelog) 
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 		
 	},
@@ -194,6 +198,8 @@ export default {
 			return res.status(201).json(changelog)
 		} catch(err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	
 	},
@@ -248,6 +254,8 @@ export default {
 			return res.status(201).json(updateChangelog)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 		
 	},

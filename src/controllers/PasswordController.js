@@ -46,6 +46,8 @@ export default {
 			return res.sendStatus(204)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 }

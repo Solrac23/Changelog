@@ -27,6 +27,8 @@ export default {
 			return res.status(200).json(categories)
 		}catch(err) {
 			throw new AppErros('Error to get categories', 401)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 	async createCategories(req, res){
@@ -63,6 +65,8 @@ export default {
 			return res.status(201).json(create)
 		}catch(err){
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 
@@ -119,6 +123,8 @@ export default {
 			return res.status(200).json(editCategoryAndCategories)
 		} catch (err) {
 			console.error(err.message)
+		}finally{
+			await prismaClient.$disconnect()
 		}
 	},
 
