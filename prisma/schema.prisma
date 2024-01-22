@@ -73,7 +73,9 @@ model Imagem {
 
 model User {
   id         String      @id @default(uuid())
-  name       String
+  firstName  String      @map("first_name")
+  lastName   String      @map("last_name")
+  username   String
   email      String      @unique
   password   String
   role       Role        @default(USER)
