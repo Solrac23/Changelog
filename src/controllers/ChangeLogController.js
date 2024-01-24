@@ -47,7 +47,9 @@ export default {
 					user: {
 						select: {
 							id: true,
-							name: true,
+							firstName: true,
+							lastName: true,
+							username: true,
 							email: true,
 						}
 					}
@@ -65,6 +67,7 @@ export default {
 		}
 	},
 	async show(req, res) {
+		// paginação das páginas
 		const { page = 1, pageSize = 5} = req.query
 		const skip = (page -1) * pageSize
 
@@ -95,7 +98,9 @@ export default {
 					user: {
 						select: {
 							id: true,
-							name: true,
+							firstName: true,
+							lastName: true,
+							username: true,
 							email: true,
 						}
 					}
@@ -193,6 +198,15 @@ export default {
 						}
 					}
 				},
+				select:{
+					user: {
+						select: {
+							firstName: true,
+							lastName: true,
+							username: true
+						}
+					}
+				}
 			})
 
 			return res.status(201).json(changelog)

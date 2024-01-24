@@ -7,21 +7,33 @@ export default {
 	async authenticate(req, res){
 		const {
 			email,
-			password
+			username,
+			password,
 		} = req.body
 
-		if(!email || !password){
-			throw new AppErros('Please provide email and password!')
+		if(!email &&!username){
+			throw new AppErros('Please provide E-mail/username!')
+		}else if(!password){
+			throw new AppErros('Password can\'t be empty')
 		}
 
 		try {
 			const user = await prismaClient.user.findFirst({
 				where:{
-					email,
+					OR: [
+						{
+							email
+						},
+						{
+							username
+						}
+					],
 				},
 				select: {
 					id: true,
-					name: true,
+					firstName: true,
+					lastName: true,
+					username:true,
 					email: true,
 					password: true,
 					role: true,

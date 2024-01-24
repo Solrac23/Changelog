@@ -4,11 +4,16 @@ import { AppErros } from '../errors/appErros.js'
 
 export default {
 	async userList(req, res){
+		const { page = 1, pageSize = 10} = req.query
+		const skip = (page -1) * pageSize
+
 		try {
 			const users = await prismaClient.user.findMany({
 				select: {
 					id: true,
-					name: true,
+					firstName: true,
+					lastName: true,
+					username: true,
 					email: true,
 					role: true,
 					company: {
@@ -20,6 +25,17 @@ export default {
 						}
 					}
 				},
+				skip,
+				take: parseInt(pageSize)
+			})
+
+			const totalCount = await prismaClient.user.count()
+			const totalPages = Math.ceil(totalCount / parseInt(pageSize))
+			
+			res.set({
+				'X-Total-Count': totalCount,
+				'X-Total-Pages': totalPages,
+				'X-Current-Page': page
 			})
 
 			return res.status(200).json(users)
@@ -44,7 +60,9 @@ export default {
 				},
 				select: {
 					id: true,
-					name: true,
+					firstName: true,
+					lastName: true,
+					username: true,
 					email: true,
 					createAt: true,
 					updateAt: true,
@@ -63,11 +81,13 @@ export default {
 
 	async store(req, res){
 		const {
-			name,
+			firstName,
+			lastName,
+			username,
 			email,
 			password,
 			role,
-			CompanyName,
+			companyName,
 			uf,
 			city
 		} = req.body
@@ -75,15 +95,21 @@ export default {
 		const pass = crypt(password)
 		
 		if(!email || !password){
-			throw new AppErros('E-mail/pssword incorrect!')
+			throw new AppErros('Provide E-mail/pssword!')
+		}else if(!username){
+			throw new AppErros('Provide username please!')
 		}
 		
 		const userAlreadyExist = await prismaClient.user.findFirst({
 			where:{
-				email,
+				OR:[
+					{ email },
+					{ username }
+				],
 			},
 		})
 		
+
 		if(userAlreadyExist){
 			throw new AppErros('User already exist!', 409)
 		}
@@ -91,13 +117,15 @@ export default {
 		try {
 			const user = await prismaClient.user.create({
 				data: {
-					name,
+					firstName,
+					lastName,
+					username,
 					email,
 					password: pass,
 					role,
 					company: {
 						create:{
-							CompanyName,
+							CompanyName: companyName,
 							uf,
 							city,
 						},						
@@ -121,9 +149,11 @@ export default {
 	},
 	async updated(req, res){
 		const {
-			name, 
+			firstName,
+			lastName,
+			username,
 			email,
-			CompanyName,
+			companyName,
 			uf,
 			city
 		} = req.body
@@ -140,11 +170,13 @@ export default {
 					id: userId
 				},
 				data: {
-					name,
+					firstName,
+					lastName,
+					username,
 					email, 
 					company: {
 						update: {
-							CompanyName,
+							CompanyName: companyName,
 							uf,
 							city
 						}
@@ -152,7 +184,9 @@ export default {
 				},
 				select: {
 					id: true,
-					name: true,
+					firstName: true,
+					lastName: true,
+					username: true,
 					email: true,
 					company: true,
 				}

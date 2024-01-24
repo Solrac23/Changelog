@@ -6,25 +6,30 @@ export default {
 	async changePassword(req, res) {
 		const {
 			email,
+			username,
 			new_password,
 			confirm_password
 		} = req.body
 
-		if(!email) {
-			throw new AppErros('Bad Request', 400)
+		if(!email && !username) {
+			throw new AppErros('Provide username please!')
 		}
 
 		const user = await prismaClient.user.findFirst({
 			where: {
-				email,
+				OR:[
+					{ email },
+					{ username }
+				],
 			},
 			select: {
-				email: true
+				email: true,
+				username: true
 			}
 		})
 
 		if(!user) {
-			throw new AppErros('E-mail not exist!')
+			throw new AppErros('E-mail/username not exist!')
 		}
 
 		if(new_password !== confirm_password){
@@ -37,7 +42,10 @@ export default {
 
 			await prismaClient.user.update({
 				where: {
-					email,
+					OR:[
+						{email},
+						{username}
+					],
 				},
 				data: {
 					password: pass,
