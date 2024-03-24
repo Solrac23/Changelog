@@ -1,4 +1,5 @@
 import express from 'express'
+import {createServer} from 'node:http'
 import path, {dirname} from 'node:path'
 import { fileURLToPath } from 'node:url'
 import 'express-async-errors'
@@ -9,6 +10,7 @@ import morgan from 'morgan'
 import { AppErros } from './errors/appErros.js'
 
 const app = express()
+const server = createServer(app)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -45,4 +47,4 @@ app.use((err, req, res, _next) => {
 	})
 })
 
-export {app}
+export {server}
