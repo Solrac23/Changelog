@@ -26,18 +26,18 @@ router.delete('/changelog/:id/image/:imageId', authMiddleware, adminMiddleware, 
 
 router.get('/label/list', authMiddleware, labelController.listLabel)
 router.post('/label', authMiddleware, adminMiddleware, labelController.createLabel)
-router.patch('/label/:labelId', authMiddleware, adminMiddleware, labelController.editLabel)
+router.put('/label/:labelId', authMiddleware, adminMiddleware, labelController.editLabel)
 
 router.get('/categories/category/list', 
 	authMiddleware, 
 	categoriesController.listCotegories)
 router.post('/categories', authMiddleware, adminMiddleware, categoriesController.createCategories)
-router.patch('/categories/:categorieId/category/:categoryId', 
+router.put('/categories/:categorieId/category/:categoryId', 
 	authMiddleware, 
 	adminMiddleware, 
 	categoriesController.editCategories)
 
-router.put('/forgetpassword', passwordController.changePassword)
+router.patch('/forgetpassword', passwordController.changePassword)
 
 router.get('/user/list', authMiddleware, adminMiddleware, userController.userList)
 router.get('/user', authMiddleware, userController.show)
