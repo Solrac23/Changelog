@@ -5,11 +5,20 @@ import {crypt} from './util/cryptography.js'
 export default {
 	async changePassword(req, res) {
 		const {
-			email,
-			username,
+			emailOrUsername,
 			new_password,
 			confirm_password
 		} = req.body
+		let email
+		let username
+
+		if(emailOrUsername.includes('@')){
+			//Email
+			email = emailOrUsername.match(/\w+@/).input
+		}else{
+			//Usuário
+			username = emailOrUsername
+		}
 
 		if(!email && !username) {
 			throw new AppErros('Provide username please!')
@@ -23,6 +32,7 @@ export default {
 				],
 			},
 			select: {
+				id: true,
 				email: true,
 				username: true
 			}
@@ -42,17 +52,14 @@ export default {
 
 			await prismaClient.user.update({
 				where: {
-					OR:[
-						{email},
-						{username}
-					],
+					id: user?.id
 				},
 				data: {
 					password: pass,
-				}
+				},
 			})
 			return res.sendStatus(204)
-		} catch (err) {
+		} catch (err) { 
 			console.error(err.message)
 		}finally{
 			await prismaClient.$disconnect()
