@@ -6,12 +6,22 @@ import jwt from 'jsonwebtoken'
 export default {
 	async authenticate(req, res){
 		const {
-			email,
-			username,
+			emailOrUsername,
 			password,
 		} = req.body
+		
+		let email
+		let username
 
-		if(!email &&!username){
+		if(emailOrUsername.includes('@')){
+			//Email
+			email = emailOrUsername.match(/\w+@/).input
+		}else{
+			//Usuário
+			username = emailOrUsername
+		}
+
+		if(!emailOrUsername){
 			throw new AppErros('Please provide E-mail/username!')
 		}else if(!password){
 			throw new AppErros('Password can\'t be empty')
@@ -21,12 +31,8 @@ export default {
 			const user = await prismaClient.user.findFirst({
 				where:{
 					OR: [
-						{
-							email
-						},
-						{
-							username
-						}
+						{email},
+						{username}
 					],
 				},
 				select: {
