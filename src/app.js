@@ -20,7 +20,7 @@ if(process.env.NODE_ENV === 'development'){
 
 app.use(cors({
 	origin: '*',
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 	allowedHeaders: ['Content-Type', 'Authorization', 'Set-Cookie'],
 	optionsSuccessStatus: 200,
 	credentials: true
